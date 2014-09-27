@@ -1,0 +1,4 @@
+*.out
+ips.txt
+random_ips.txt
+test*
