@@ -2,13 +2,15 @@
 
 from random import randrange
 
-def generate():
-	NUM_IPS = 100
+NUM_IPS = 10000
+
+def generate(num_ips):
+	
 	OUTPUT_FILE = open('random_ips.txt', 'w')
 
 	NOT_VALID = [10,127,169,172,192]
 	 
-	for n in range(NUM_IPS):
+	for n in range(num_ips):
 	    first = randrange(1,256)
 	    while first in NOT_VALID:
 	    	first = randrange(1,256)
@@ -20,4 +22,4 @@ def generate():
 	OUTPUT_FILE.close()
 
 if __name__ == '__main__':
-    generate()
+    generate(NUM_IPS)

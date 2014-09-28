@@ -9,11 +9,16 @@ import sys
 import re
 from multiprocessing import Pool
 
-INPUT_FILE = open('ips.txt','r')
+from process_results import process
+
+INPUT_FILE = open('random_ips.txt','r')
 OUTPUT_FILE = open('results.out', 'w')
-PROCESSES = 6
-PACKETS_PER_HOP = 4
+PROCESSES = 100
+PACKETS_PER_HOP = 2
 MAX_HOPS = 30
+SIM_PACKETS = 10
+DEBUG = False
+
 
 # Returns dictionary of results or None if destination not reached
 def parse_last_hop(last_hop):
@@ -42,15 +47,17 @@ def parse_last_hop(last_hop):
     return results
 
 def traceroute(host):
-    proc = subprocess.Popen([ 'traceroute', host, '-n', '-q '+str(PACKETS_PER_HOP), '-m '+str(MAX_HOPS) ], stdout=subprocess.PIPE)
+    proc = subprocess.Popen([ 'traceroute', host, '-n', '-q '+str(PACKETS_PER_HOP), '-m '+str(MAX_HOPS), '-N '+str(SIM_PACKETS) ], stdout=subprocess.PIPE)
     hop = ''
     while True:
         last_hop = hop
         hop = proc.stdout.readline()
         if not hop:
             break
-        print hop
-    print 'LASTHOP: ' + last_hop
+        if DEBUG:
+            print hop
+    if DEBUG:
+        print 'LASTHOP: ' + last_hop
     
     results = parse_last_hop(last_hop)
     results['host'] = host
@@ -61,7 +68,6 @@ def traceroute(host):
 
 def write_results(results):
     if not 'dest' in results:
-        print 'NO RESULTS'
         OUTPUT_FILE.write(results['host'] + ', NOTREACHED\n')
     else:
         OUTPUT_FILE.write(results['host']+', '+str(results['hops'])+', '+str(results['dest'])+', '+str(results['time'])+'\n')
@@ -74,11 +80,12 @@ pool = Pool(PROCESSES)
 if __name__ == '__main__':
     host = INPUT_FILE.readline().rstrip('\n')
     while host:
-        print host
         pool.apply_async(traceroute, args=(host, ), callback=write_results)
         host = INPUT_FILE.readline().rstrip('\n')
     pool.close()
     pool.join()
 
-INPUT_FILE.close()
-OUTPUT_FILE.close()
+    INPUT_FILE.close()
+    OUTPUT_FILE.close()
+
+    process()

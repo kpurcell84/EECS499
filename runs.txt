@@ -1,0 +1,13 @@
+Run 1:
+	NUM_IPS = 10000
+	PROCESSES = 100
+	PACKETS_PER_HOP = 2
+	MAX_HOPS = 30
+	SIM_PACKETS = 10
+
+	4.01% valid results
+	Average hops: 18.855361596
+	Average time: 527.723705736
+	real    47m15.264s
+	user    0m28.952s
+	sys     0m54.916s
