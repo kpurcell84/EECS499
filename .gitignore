@@ -3,3 +3,4 @@ ips.txt
 random_ips.txt
 test*
 *.pyc
+venv/
