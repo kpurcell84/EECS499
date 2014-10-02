@@ -15,7 +15,7 @@ INPUT_FILE = open('random_ips.txt','r')
 OUTPUT_FILE = open('results.out', 'w')
 PROCESSES = 100
 PACKETS_PER_HOP = 2
-MAX_HOPS = 30
+MAX_HOPS = 80
 SIM_PACKETS = 10
 DEBUG = False
 
@@ -47,7 +47,7 @@ def parse_last_hop(last_hop):
     return results
 
 def traceroute(host):
-    proc = subprocess.Popen([ 'traceroute', host, '-n', '-q '+str(PACKETS_PER_HOP), '-m '+str(MAX_HOPS), '-N '+str(SIM_PACKETS) ], stdout=subprocess.PIPE)
+    proc = subprocess.Popen([ 'sudo', 'traceroute', host, '-n', '-q '+str(PACKETS_PER_HOP), '-m '+str(MAX_HOPS), '-N '+str(SIM_PACKETS), '-T' ], stdout=subprocess.PIPE)
     hop = ''
     while True:
         last_hop = hop

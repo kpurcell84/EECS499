@@ -1,4 +1,4 @@
-Run 1:
+Run 1 (ICMP):
 	NUM_IPS = 10000
 	PROCESSES = 100
 	PACKETS_PER_HOP = 2
@@ -8,6 +8,37 @@ Run 1:
 	4.01% valid results
 	Average hops: 18.855361596
 	Average time: 527.723705736
+
 	real    47m15.264s
 	user    0m28.952s
 	sys     0m54.916s
+
+Run 2 (ICMP):
+	NUM_IPS = 10000
+	PROCESSES = 100
+	PACKETS_PER_HOP = 2
+	MAX_HOPS = 80
+	SIM_PACKETS = 10
+
+	9.90% valid results
+	Average hops: 33.9212121212
+	Average time: 468.055315152
+
+	real    123m28.043s
+	user    1m16.400s
+	sys     2m19.516s
+
+Run 3 (TCP):
+	NUM_IPS = 10000
+	PROCESSES = 100
+	PACKETS_PER_HOP = 2
+	MAX_HOPS = 80
+	SIM_PACKETS = 10
+
+	14.76% valid results
+	Average hops: 32.3001355014
+	Average time: 454.167879404
+
+	real    115m53.233s
+	user    1m14.904s
+	sys     2m17.704s

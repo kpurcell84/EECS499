@@ -1,7 +1,9 @@
 # Processes results.out file to reveal totals
 
-def process():
-    INPUT_FILE = open('results.out','r')
+import sys
+
+def process(infile):
+    INPUT_FILE = open(infile,'r')
     valid_results = 0.0
     total_results = 0.0
     hop_sum = 0.0
@@ -31,4 +33,7 @@ def process():
     INPUT_FILE.close()
 
 if __name__ == '__main__':
-    process()
+    if len(sys.argv) != 2:
+        print "Specify an input file"
+        exit(1)
+    process(sys.argv[1])
