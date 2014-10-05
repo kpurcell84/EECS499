@@ -11,7 +11,7 @@ from multiprocessing import Pool
 
 from process_results import process
 
-INPUT_FILE = open('random_ips1.txt','r')
+INPUT_FILE = open('random_ips.txt','r')
 OUTPUT_FILE = open('results.out', 'w')
 PROCESSES = 100
 PACKETS_PER_HOP = 2
@@ -56,7 +56,7 @@ def is_valid_hop(hop):
 		return True
 
 def traceroute(host):
-	proc = subprocess.Popen([ 'sudo', 'traceroute', host, '-n', '-q '+str(PACKETS_PER_HOP), '-m '+str(MAX_HOPS), '-N '+str(SIM_PACKETS), '-T' ], stdout=subprocess.PIPE)
+	proc = subprocess.Popen([ 'sudo', 'traceroute', host, '-n', '-q '+str(PACKETS_PER_HOP), '-m '+str(MAX_HOPS), '-N '+str(SIM_PACKETS) ], stdout=subprocess.PIPE)
 	hop = ''
 	valid_hops = 0
 	while True:
@@ -73,7 +73,7 @@ def traceroute(host):
 	
 	results = parse_last_hop(last_hop)
 	results['host'] = host
-	results['valid_hops'] = valid_hops
+	results['valid_hops'] = valid_hops-1
 	
 	proc.wait()
 
@@ -84,6 +84,7 @@ def write_results(results):
 		OUTPUT_FILE.write(results['host'] + ', NOTREACHED\n')
 	else:
 		OUTPUT_FILE.write(results['host']+', '+str(results['hops'])+', '+str(results['valid_hops'])+', '+str(results['dest'])+', '+str(results['time'])+'\n')
+		OUTPUT_FILE.flush()
 
 
 ########################################################################
@@ -94,6 +95,7 @@ if __name__ == '__main__':
 	host = INPUT_FILE.readline().rstrip('\n')
 	while host:
 		pool.apply_async(traceroute, args=(host, ), callback=write_results)
+		# write_results(traceroute(host))
 		host = INPUT_FILE.readline().rstrip('\n')
 	pool.close()
 	pool.join()
@@ -101,4 +103,4 @@ if __name__ == '__main__':
 	INPUT_FILE.close()
 	OUTPUT_FILE.close()
 
-	process()
+	process('results.out')
