@@ -15,4 +15,4 @@ Set parameters in the three scripts below as desired, then
 ## To do:
 - Run large TCP and/or ICMP test (depending on results of small test) for ~2 days
 - Make a CDF graph with number of hops on X-axis and % Reached (of successful responses) on Y-axis
-- Add parameter for number of successful hops
+- Check destination IPs again original target host
