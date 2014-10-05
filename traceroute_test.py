@@ -11,7 +11,7 @@ from multiprocessing import Pool
 
 from process_results import process
 
-INPUT_FILE = open('random_ips.txt','r')
+INPUT_FILE = open('random_ips1.txt','r')
 OUTPUT_FILE = open('results.out', 'w')
 PROCESSES = 100
 PACKETS_PER_HOP = 2
@@ -46,14 +46,26 @@ def parse_last_hop(last_hop):
 	results['time'] = time_sum/num_valid_packets
 	return results
 
+def is_valid_hop(hop):
+	line = re.split(' +|ms|\n', hop)
+	line = filter(None, line)
+
+	if line[1] == '*':
+		return False
+	else:
+		return True
+
 def traceroute(host):
 	proc = subprocess.Popen([ 'sudo', 'traceroute', host, '-n', '-q '+str(PACKETS_PER_HOP), '-m '+str(MAX_HOPS), '-N '+str(SIM_PACKETS), '-T' ], stdout=subprocess.PIPE)
 	hop = ''
+	valid_hops = 0
 	while True:
 		last_hop = hop
 		hop = proc.stdout.readline()
 		if not hop:
 			break
+		if is_valid_hop(hop):
+			valid_hops += 1
 		if DEBUG:
 			print hop
 	if DEBUG:
@@ -61,6 +73,7 @@ def traceroute(host):
 	
 	results = parse_last_hop(last_hop)
 	results['host'] = host
+	results['valid_hops'] = valid_hops
 	
 	proc.wait()
 
@@ -70,7 +83,7 @@ def write_results(results):
 	if not 'dest' in results:
 		OUTPUT_FILE.write(results['host'] + ', NOTREACHED\n')
 	else:
-		OUTPUT_FILE.write(results['host']+', '+str(results['hops'])+', '+str(results['dest'])+', '+str(results['time'])+'\n')
+		OUTPUT_FILE.write(results['host']+', '+str(results['hops'])+', '+str(results['valid_hops'])+', '+str(results['dest'])+', '+str(results['time'])+'\n')
 
 
 ########################################################################

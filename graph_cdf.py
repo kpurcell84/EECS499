@@ -21,7 +21,7 @@ def graph(infile):
 			hops_list.append(float(result[1]))
 		result = INPUT_FILE.readline().rstrip('\n')
 
-	# print hops_list
+	print hops_list
 
 	a = numpy.array(hops_list)
 	num_bins = len(list(set(hops_list)))+3
