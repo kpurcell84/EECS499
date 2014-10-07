@@ -11,31 +11,50 @@ from multiprocessing import Pool
 
 from process_results import process
 
-INPUT_FILE = open('random_ips.txt','r')
+INPUT_FILE = open('random_ips1.txt','r')
 OUTPUT_FILE = open('results.out', 'w')
-PROCESSES = 100
+PROCESSES = 1
 PACKETS_PER_HOP = 2
 MAX_HOPS = 80
 SIM_PACKETS = 10
-DEBUG = False
+DEBUG = True
 
+def is_ip(ip):
+    a = ip.split('.')
+    if len(a) != 4:
+        return False
+    for x in a:
+        if not x.isdigit():
+            return False
+        i = int(x)
+        if i < 0 or i > 255:
+            return False
+    return True
 
-# Returns dictionary of results or None if destination not reached
-def parse_last_hop(last_hop):
+# Returns dictionary of results or empty dict if destination not reached
+def parse_last_hop(last_hop, host):
 	results = {}
 	last_line = re.split(' +|ms|\n', last_hop)
 	last_line = filter(None, last_line)
 
-	if last_line[1] == '*':
+	# Check if last line contains target host
+	reached_dest = False
+	for num in last_line:
+		if is_ip(num) and num == host:
+			reached_dest = True
+			break
+		
+	if not reached_dest:	
 		return results
 
 	results['hops'] = last_line[0]
-	results['dest'] = last_line[1]
+	results['dest'] = host
 	last_line.pop(0)
 
 	time_sum = 0.0
 	num_valid_packets = 0
 	for num in last_line:
+		# Check if it's a time value
 		try:
 			num = float(num)
 		except ValueError:
@@ -71,7 +90,7 @@ def traceroute(host):
 	if DEBUG:
 		print 'LASTHOP: ' + last_hop
 	
-	results = parse_last_hop(last_hop)
+	results = parse_last_hop(last_hop, host)
 	results['host'] = host
 	results['valid_hops'] = valid_hops-1
 	
