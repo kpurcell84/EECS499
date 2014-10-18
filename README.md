@@ -6,17 +6,13 @@ Set parameters in the three scripts below as desired, then
 `python traceroute_test.py`
 
 ## Requirements:
-- `pip install numpy`
-- `pip install matplotlib`
+
 
 ## Notes:
 - If number of processes, simultaneous packets sent, or max hops is set too high, buffer space runs out ("send probe: No buffer space available") and results are corrupted
 
 ## To do:
-- Run large TCP and/or ICMP test (depending on results of small test) for ~2 days
-- Make a CDF graph with number of hops on X-axis and % Reached (of successful responses) on Y-axis
 
-- 
 
 ## Done:
 1. Created script to generate a specified amount of valid random IP addresses
@@ -28,3 +24,5 @@ Set parameters in the three scripts below as desired, then
 4.  Ran script with several different inputs to determine the optimal balance of processes, simultaneous packets, and max hops without overflowing buffer
 5.  Ran script on 10,000 IPs in both ICMP and TCP mode to compare results
 6.  Wrote a script to compare the result sets and see whether or not they were disjoint with respect to reaching the target host
+7.	Ran traceroute script with 2,000,000 hosts for both ICMP and TCP on EECS server
+8.	Graphed results as a CDF to determine optimal max hops setting
