@@ -74,3 +74,32 @@ Run 5 (TCP):
 	real    117m4.813s
 	user    1m30.760s
 	sys     2m23.392s
+
+Run 6 (ICMP, geryon):
+	NUM_IPS = 2000000
+	PROCESSES = 500
+	PACKETS_PER_HOP = 2
+	MAX_HOPS = 60
+	SIM_PACKETS = 100
+
+	3.70% valid results
+	Average hops: 19.0467110505
+	Average valid hops: 15.0053476658
+	Average time: 524.322456489
+
+	8:12:37 elapsed
+
+Run 7 (TCP, geryon):
+	NUM_IPS = 2000000
+	PROCESSES = 500
+	PACKETS_PER_HOP = 2
+	MAX_HOPS = 60
+	SIM_PACKETS = 100
+
+	4.33% valid results
+	Average hops: 17.9565598744
+	Average valid hops: 14.4762256486
+	Average time: 536.28024704
+
+	8:13:34 elapsed
+

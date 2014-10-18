@@ -16,6 +16,8 @@ Set parameters in the three scripts below as desired, then
 - Run large TCP and/or ICMP test (depending on results of small test) for ~2 days
 - Make a CDF graph with number of hops on X-axis and % Reached (of successful responses) on Y-axis
 
+- 
+
 ## Done:
 1. Created script to generate a specified amount of valid random IP addresses
 2. Created a script to simultaneously send traceroutes to an inputted list of hosts and track the following:
