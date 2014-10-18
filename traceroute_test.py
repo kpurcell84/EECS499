@@ -11,8 +11,8 @@ from multiprocessing import Pool
 
 from process_results import process
 
-INPUT_FILE = open('random_ips1.txt','r')
-OUTPUT_FILE = open('results.out', 'w')
+INPUT_FILE = None
+OUTPUT_FILE = None
 PROCESSES = 1
 PACKETS_PER_HOP = 2
 MAX_HOPS = 80
@@ -111,6 +111,12 @@ def write_results(results):
 pool = Pool(PROCESSES)
 
 if __name__ == '__main__':
+	if len(sys.argv) != 3:
+		print "Usage: " + sys.argv[0] + " [hosts file] [results output file]"
+		exit(1)
+	INPUT_FILE = open(sys.argv[1],'r')
+	OUTPUT_FILE = open(sys.argv[2], 'w')
+
 	host = INPUT_FILE.readline().rstrip('\n')
 	while host:
 		pool.apply_async(traceroute, args=(host, ), callback=write_results)

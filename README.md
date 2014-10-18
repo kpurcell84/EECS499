@@ -12,7 +12,8 @@ Set parameters in the three scripts below as desired, then
 - If number of processes, simultaneous packets sent, or max hops is set too high, buffer space runs out ("send probe: No buffer space available") and results are corrupted
 
 ## To do:
-
+- Design architecture for zmap traceroute extension
+- Implement extension
 
 ## Done:
 1. Created script to generate a specified amount of valid random IP addresses

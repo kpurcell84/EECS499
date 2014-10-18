@@ -62,6 +62,6 @@ def compare(infile1, infile2):
 
 if __name__ == '__main__':
 	if len(sys.argv) != 3:
-		print "Specify two input file to compare"
+		print "Usage: " + sys.argv[0] + " [results file 1] [results file 2]"
 		exit(1)
 	compare(sys.argv[1], sys.argv[2])
