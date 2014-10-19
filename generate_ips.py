@@ -2,11 +2,9 @@
 
 from random import randrange
 
-NUM_IPS = 10000
-
-def generate(num_ips):
+def generate(num_ips, outfile):
 	
-	OUTPUT_FILE = open('random_ips.txt', 'w')
+	OUTPUT_FILE = open(outfile, 'w')
 
 	NOT_VALID = [10,127,169,172,192]
 	 
@@ -22,4 +20,7 @@ def generate(num_ips):
 	OUTPUT_FILE.close()
 
 if __name__ == '__main__':
-	generate(NUM_IPS)
+	if len(sys.argv) != 3:
+		print "Usage: " + sys.argv[0] + " [number of ips] [output file]"
+		exit(1)
+	generate(sys.argv[1], sys.argv[2])
