@@ -1,4 +1,4 @@
-set title "Traceroute TCP CDF (86,648 hosts reached)"
+set title "Traceroute ICMP CDF (74,051 hosts reached)"
 set terminal postscript color
 set term postscript enhanced eps color font "Helvetica,20"
 set output "output.ps"
@@ -33,4 +33,4 @@ set style line 13 linecolor rgb '#d55258' linetype 1 linewidth 1.5
 
 set xrange [0:60]
 
-plot "tcp_cdf.csv" using 1:2 title "Hosts Reached" with lines ls 4;
+plot "icmp_cdf2.csv" using 1:2 title "Hosts Reached" with lines ls 4;

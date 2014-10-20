@@ -19,7 +19,7 @@ def graph(infile, outfile):
 		# print result
 
 		if result[1] != 'NOTREACHED':
-			hops_list.append(int(result[2]))
+			hops_list.append(int(result[1]))
 		result = INPUT_FILE.readline().rstrip('\n')
 
 	hops_list.sort()
