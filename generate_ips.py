@@ -1,6 +1,7 @@
 # Generates NUM_IPS random IP addresses
 
 from random import randrange
+import sys
 
 def generate(num_ips, outfile):
 	
@@ -23,4 +24,4 @@ if __name__ == '__main__':
 	if len(sys.argv) != 3:
 		print "Usage: " + sys.argv[0] + " [number of ips] [output file]"
 		exit(1)
-	generate(sys.argv[1], sys.argv[2])
+	generate(int(sys.argv[1]), sys.argv[2])

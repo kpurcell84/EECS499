@@ -33,4 +33,4 @@ set style line 13 linecolor rgb '#d55258' linetype 1 linewidth 1.5
 
 set xrange [0:60]
 
-plot "icmp_cdf2.csv" using 1:2 title "Hosts Reached" with lines ls 4;
+plot filename using 1:2 title "Hosts Reached" with lines ls 4;

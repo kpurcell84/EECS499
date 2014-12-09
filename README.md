@@ -12,22 +12,6 @@ Set parameters in the three scripts below as desired, then
 - If number of processes, simultaneous packets sent, or max hops is set too high, buffer space runs out ("send probe: No buffer space available") and results are corrupted
 
 ## To do:
-- Design architecture for zmap traceroute extension
-- Implement extension
-
-
-- How to create and send a TCP packet and get an ICMP response
-	- zmap/src/probe_modules
-		- icmp_echo
-		- tcp_synscan (create tcp packets)
-		- udp
-
-
-State ring 
-32 bit - IP addr
-32 bit - how many hops
-
-
 
 
 ## Done:
